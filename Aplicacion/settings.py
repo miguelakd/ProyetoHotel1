@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'jazzmin',
     'tablascatalogos',
     'incidencias',
+    'dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 #LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = 'es'
 
 
 #TIME_ZONE = 'UTC'
@@ -143,23 +145,23 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_REDIRECT_URL = '/admin/dashboard/'
+
 
 JAZZMIN_SETTINGS = {
     # Título del sitio en el admin
     "site_title": "Aplicación",
     "site_header": "Aplicación",
-    "site_brand": "Aplicación SH",
+    "site_brand": "GESTIONA",
     
     # Texto de copyright en el pie de página
-    "copyright": "Aplicación SH - Todos los derechos reservados 2025",
+   # "copyright": "Aplicación SH - Todos los derechos reservados 2025",
     
     # Ocultar la versión de Jazzmin
     "show_ui_builder": False,  # Quita el botón de personalización
-    "hide_jazzmin_version": True, 
-
+   
     "welcome_sign": "Bienvenido",
     
-
     
     # Logotipo para la página de login y el admin
     "site_logo": "img/logo.png",
@@ -169,73 +171,48 @@ JAZZMIN_SETTINGS = {
     "theme": "flatly",
     "show_sidebar": True,
     "navigation_expanded": True,
-    "custom_links": {
-        "catalogos": [
-            {
-                "name": "Dashboard",
-                "url": "dashboard",
-                "icon": "fas fa-tachometer-alt",
-            },
-            {
-                "name": "Nivel",
-                "url": "nivel",
-                "icon": "fas fa-layer-group",
-            },
-            {
-                "name": "Nivel1",
-                "url": "nivel1",
-                "icon": "fas fa-layer-group",
-            },
-            {
-                "name": "Nivel2",
-                "url": "nivel2",
-                "icon": "fas fa-layer-group",
-            },
-            {
-                "name": "Nivel3",
-                "url": "nivel3",
-                "icon": "fas fa-layer-group",
-            },
-            {
-                "name": "Incidencias",
-                "url": "incidencias",
-                "icon": "fas fa-exclamation-triangle",
-            },
-            {
-                "name": "Estados",
-                "url": "estados",
-                "icon": "fas fa-flag",
-            },
-        ],
-        "moduloautentificacion": [
-            {
-                "name": "Incidencia",
-                "url": "admin:moduloautentificacion_incidencia_changelist",
-                "icon": "fas fa-bug",
-            },
-        ],
-    },
     "show_ui_builder": False,
     "changeform_format": "horizontal_tabs",
-    "custom_css": None,
-    "custom_js": None,
+    
+
+        #mostrar configuracion visual
+   # "show_ui_builder": True,
+
+    "user_avatar": "avatar",  # Si tienes un campo 'avatar' en tu modelo User (ImageField o URL), lo muestra en el dropdown.
+    
+    
 }
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
     "footer_small_text": False,
-    "body_small_text": False,
+    "body_small_text": True,
     "brand_small_text": False,
-    "brand_colour": "navbar-light",  # Navbar claro para combinar con el tema
+    "brand_colour": "navbar-light",
     "accent": "accent-primary",
-    "navbar": "navbar-light",  # Navbar blanco
+    "navbar": "navbar-danger navbar-dark",
     "no_navbar_border": False,
-    "sidebar": "sidebar-light-red",  # Sidebar blanco
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-light-red",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": True,
     "sidebar_nav_compact_style": False,
     "sidebar_nav_legacy_style": False,
     "sidebar_nav_flat_style": False,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
 }
+
 

@@ -15,6 +15,8 @@ class Nivel1Admin(admin.ModelAdmin):
             obj.usuario = request.user
         super().save_model(request, obj, form, change)
 
+    list_per_page = 20  # Limita a 20 registros por página.
+  
 
 @admin.register(Nivel2)
 class Nivel2Admin(admin.ModelAdmin):
@@ -29,7 +31,8 @@ class Nivel2Admin(admin.ModelAdmin):
             obj.usuario = request.user
         super().save_model(request, obj, form, change)
 
-
+    list_per_page = 20  # Limita a 20 registros por página.
+  
 
 @admin.register(Nivel3)
 class Nivel3Admin(admin.ModelAdmin):
@@ -44,7 +47,8 @@ class Nivel3Admin(admin.ModelAdmin):
             obj.usuario = request.user
         super().save_model(request, obj, form, change)
 
-
+    list_per_page = 20  # Limita a 20 registros por página.
+  
 @admin.register(Incidencias)
 class IncidenciasAdmin(admin.ModelAdmin):
     list_display = ('descripcion', 'fecha', 'usuario', 'estado')
@@ -57,7 +61,9 @@ class IncidenciasAdmin(admin.ModelAdmin):
             obj.usuario = request.user
         super().save_model(request, obj, form, change)
 
-
+    list_per_page = 20  # Limita a 20 registros por página.
+    # Opcional: Agrega más configuraciones, como campos a mostrar en la lista.
+   
 @admin.register(Estados)
 class EstadosAdmin(admin.ModelAdmin):
     list_display = ('id', 'descripcion', 'estado')

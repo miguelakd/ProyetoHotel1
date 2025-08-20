@@ -1,0 +1,17 @@
+<ul class="navbar-nav ml-auto">
+    <!-- User dropdown -->
+    <li class="nav-item dropdown user-menu">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+            <!-- Avatar o iniciales -->
+            {% if request.user|has_avatar %}
+            <img src="{{ request.user|avatar_url }}" class="user-image" alt="User Image">
+            {% else %}
+            <span class="fa fa-user-circle"></span>
+            {% endif %}
+            <span class="d-none d-md-inline">{{ request.user.get_short_name|default:request.user.username }}</span>  <!-- Aquí está el nombre visible en algunos tamaños -->
+        </a>
+        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <!-- Opciones como perfil, logout -->
+        </ul>
+    </li>
+</ul>

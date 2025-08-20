@@ -25,8 +25,8 @@ class Nivel2(models.Model):
     estado = models.BooleanField(default=True)
 
     def __str__(self):
-    #    return f"{self.id_nivel1.descripcion} - {self.descripcion}"
-         return self.descripcion
+       return f"{self.id_nivel1.descripcion} - {self.descripcion}"
+    #     return self.descripcion
     
     class Meta:
         verbose_name = 'Nivel2'
@@ -42,8 +42,8 @@ class Nivel3(models.Model):
     estado = models.BooleanField(default=True)
 
     def __str__(self):
-       # return f"{self.id_nivel1.descripcion } - {self.id_nivel2.descripcion} - {self.descripcion}"
-         return self.descripcion
+        return f"{self.id_nivel1.descripcion } - {self.id_nivel2.descripcion} - {self.descripcion}"
+       #  return self.descripcion
 
     
     class Meta:
@@ -62,8 +62,8 @@ class Incidencias(models.Model):
     
     
     class Meta:
-        verbose_name = 'Incidentes'
-        verbose_name_plural ='Incidentes'
+        verbose_name = 'Tabla de Incidentes'
+        verbose_name_plural ='Tabla de Incidentes'
     
     
 

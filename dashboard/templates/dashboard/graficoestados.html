@@ -1,0 +1,134 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Estilos para asegurar que los elementos se vean bien en la misma línea */
+  .flex-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .flex-item {
+    flex: 1;
+  }
+  .card-body {
+    padding: 1.25rem;
+  }
+</style>
+
+<div class="flex-container">
+    <div class="flex-item">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Gráfico de Porcentajes de Incidencias por Estado</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="incidenciaChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-item">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Conteo de Incidencias por Estado</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody id="incidenciaTableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+    // Variables con los datos que provienen de Django
+    var labels = {{ labels|safe }};
+    var data_porcentajes = {{ data_porcentajes|safe }};
+    var data_conteos = {{ data_conteos|safe }};
+
+    // Configuración del Gráfico Circular
+    var ctx = document.getElementById('incidenciaChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Porcentaje de Incidencias',
+                data: data_porcentajes,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += context.parsed + '%';
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Función para llenar la tabla
+    function llenarTabla(labels, data) {
+        var tbody = document.getElementById('incidenciaTableBody');
+        tbody.innerHTML = ''; // Limpia el contenido
+
+        labels.forEach(function(label, index) {
+            var row = document.createElement('tr');
+            
+            var cellEstado = document.createElement('td');
+            cellEstado.textContent = label;
+
+            var cellCantidad = document.createElement('td');
+            cellCantidad.textContent = data[index];
+
+            row.appendChild(cellEstado);
+            row.appendChild(cellCantidad);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    // Llama a la función para llenar la tabla con los datos de conteo
+    llenarTabla(labels, data_conteos);
+</script>
+{% endblock %}
